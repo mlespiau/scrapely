@@ -3,7 +3,7 @@ Extractors collection
 """
 
 import re
-import urlparse
+import urllib.parse
 
 from w3lib.html import remove_entities, remove_comments
 from w3lib.url import safe_url_string
