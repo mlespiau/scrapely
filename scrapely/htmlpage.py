@@ -5,13 +5,14 @@ Container objects for representing html pages and their parts in the IBL
 system. This encapsulates page related information and prevents parsing
 multiple times.
 """
-import re, hashlib, urllib2
+import re, hashlib
+from urllib.request import urlopen
 from w3lib.encoding import html_to_unicode
 
 def url_to_page(url, encoding=None, default_encoding='utf-8'):
-    """Fetch a URL, using python urllib2, and return an HtmlPage object.
+    """Fetch a URL, using python urllib, and return an HtmlPage object.
 
-    The `url` may be a string, or a `urllib2.Request` object. The `encoding`
+    The `url` may be a string, or a `urllib.Request` object. The `encoding`
     argument can be used to force the interpretation of the page encoding.
 
     Redirects are followed, and the `url` property of the returned HtmlPage object
@@ -21,17 +22,17 @@ def url_to_page(url, encoding=None, default_encoding='utf-8'):
     unspecified, the encoding is guessed using `w3lib.encoding.html_to_unicode`. 
     `default_encoding` is used if the encoding cannot be determined.
     """
-    fh = urllib2.urlopen(url)
+    fh = urlopen(url)
     info = fh.info()
     body_str = fh.read()
     # guess content encoding if not specified
     if encoding is None:
-        content_type_header = info.getheader("content-encoding")
+        content_type_header = info.get("content-encoding")
         encoding, body = html_to_unicode(content_type_header, body_str, 
                 default_encoding=default_encoding)
     else:
         body = body_str.decode(encoding)
-    return HtmlPage(fh.geturl(), headers=info.dict, body=body, encoding=encoding)
+    return HtmlPage(fh.geturl(), headers=info.__dict__, body=body, encoding=encoding)
 
 def dict_to_page(jsonpage, body_key='body'):
     """Create an HtmlPage object from a dict object.
