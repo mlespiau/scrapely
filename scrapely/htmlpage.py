@@ -74,13 +74,13 @@ class HtmlPage(object):
     entities or encoding urls.
     """
     def __init__(self, url=None, headers=None, body=None, page_id=None, encoding='utf-8'):
-        assert isinstance(body, unicode), "unicode expected, got: %s" % type(body).__name__
+        assert isinstance(body, str), "unicode expected, got: %s" % type(body).__name__
         self.headers = headers or {}
         self.body = body
         self.url = url or u''
         self.encoding = encoding
         if page_id is None and url:
-            self.page_id = hashlib.sha1(url).hexdigest()
+            self.page_id = hashlib.sha1(url.encode('utf-8')).hexdigest()
         else:
             self.page_id = page_id 
     
@@ -109,11 +109,11 @@ class TextPage(HtmlPage):
         self.parsed_body = [HtmlDataFragment(0, len(self._body), True)]
     body = property(lambda x: x._body, _set_body, doc="raw text for the page")
 
-class HtmlPageRegion(unicode):
+class HtmlPageRegion(str):
     """A Region of an HtmlPage that has been extracted
     """
     def __new__(cls, htmlpage, data):
-        return unicode.__new__(cls, data)
+        return str.__new__(cls, data)
 
     def __init__(self, htmlpage, data):
         """Construct a new HtmlPageRegion object.

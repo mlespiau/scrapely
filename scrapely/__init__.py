@@ -36,7 +36,7 @@ class Scraper(object):
             if not hasattr(values, '__iter__'):
                 values = [values]
             for value in values:
-                if isinstance(value, str):
+                if isinstance(value, bytes):
                     value = value.decode(htmlpage.encoding or 'utf-8')
                 tm.annotate(field, best_match(value))
         self.add_template(tm.get_template())
