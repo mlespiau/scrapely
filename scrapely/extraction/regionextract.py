@@ -8,7 +8,7 @@ import operator
 import copy
 import pprint
 import io
-from itertools import groupby, izip, starmap
+from itertools import groupby, starmap
 
 from numpy import array
 
@@ -114,7 +114,7 @@ class BasicTypeExtractor(object):
             ends = [i.start_index for i in ignored_regions]
             if starts[-1] is not None:
                 ends.append(end_index)
-            included_regions = izip(starts, ends)
+            included_regions = zip(starts, ends)
             if ends[0] is None:
                 included_regions.next()
             regions = starmap(extraction_page.htmlpage_region_inside, included_regions)

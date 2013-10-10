@@ -1,7 +1,7 @@
 """
 Similarity calculation for Instance based extraction algorithm.
 """
-from itertools import izip, count
+from itertools import count
 from operator import itemgetter
 from heapq import nlargest
 
@@ -17,7 +17,7 @@ def common_prefix_length(a, b):
     0
     """
     i = -1
-    for i, x, y in izip(count(), a, b):
+    for i, x, y in zip(count(), a, b):
         if x != y:
             return i
     return i + 1
@@ -30,7 +30,7 @@ def common_prefix(*sequences):
     ['a', 'b']
     """
     prefix = []
-    for sample in izip(*sequences):
+    for sample in zip(*sequences):
         first = sample[0]
         if all(x == first for x in sample[1:]):
             prefix.append(first)
