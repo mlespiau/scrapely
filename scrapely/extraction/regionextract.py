@@ -292,7 +292,7 @@ def _attrs2dict(attributes):
     True
     """
     grouped_data = groupby(sorted(attributes, key=_namef), _namef)
-    return dict((name, map(_valuef, data)) for (name, data)  in grouped_data)
+    return dict((name, list(map(_valuef, data))) for (name, data)  in grouped_data)
 
 class RecordExtractor(object):
     """The RecordExtractor will extract records given annotations.
