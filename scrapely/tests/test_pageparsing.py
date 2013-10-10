@@ -1,8 +1,7 @@
 """
 Unit tests for pageparsing
 """
-import os
-from cStringIO import StringIO
+import os, io
 from unittest import TestCase
 import numpy
 

@@ -1,5 +1,5 @@
 from unittest import TestCase
-from cStringIO import StringIO
+import io
 
 from scrapely import Scraper
 from scrapely.htmlpage import HtmlPage

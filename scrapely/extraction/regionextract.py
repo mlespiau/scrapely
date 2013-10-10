@@ -7,7 +7,7 @@ import re
 import operator
 import copy
 import pprint
-import cStringIO
+import io
 from itertools import groupby, izip, starmap
 
 from numpy import array
@@ -425,7 +425,7 @@ class RecordExtractor(object):
         return str(self)
 
     def __str__(self):
-        stream = cStringIO.StringIO()
+        stream = io.StringIO()
         pprint.pprint(self.extractors, stream)
         stream.seek(0)
         template_data = stream.read()
